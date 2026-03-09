@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nine Paths to AI Mastery - Interactive Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #3b82f6;
+            --secondary: #a855f7;
+            --accent: #ec4899;
+            --dark-bg: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --text-primary: #ffffff;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #111827 50%, var(--dark-bg) 100%);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.5);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.8);
+        }
+
+        /* Animated Background */
+        .bg-animations {
+            position: fixed;
+            inset: 0;
+            z-index: -10;
+            overflow: hidden;
+        }
+
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .blob-1 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #a855f7, #ec4899);
+            bottom: 20%;
+            right: 5%;
+            animation-delay: 2s;
+        }
+
+        .blob-3 {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(135deg, #06b6d4, #3b82f6);
+            top: 50%;
+            right: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(20px, -30px) rotate(90deg);
+            }
+            50% {
+                transform: translate(-10px, 20px) rotate(180deg);
+            }
+            75% {
+                transform: translate(-30px, -10px) rotate(270deg);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            padding: 60px 20px 40px;
+            text-align: center;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .header-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #60a5fa;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa, #a78bfa, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideUp 0.8s ease-out 0.2s both;
+        }
+
+        .header-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Control Panel */
+        .control-panel {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            animation: slideUp 0.8s ease-out 0.3s both;
+        }
+
+        .search-container {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 40px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: rgba(30, 41, 59, 0.95);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 18px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: var(--secondary);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Main Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.7));
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            border-radius: 16px;
+            padding: 32px 24px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out both;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-8px);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.2);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-title {
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-tagline {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            min-height: 90px;
+        }
+
+        .tools-section {
+            margin-bottom: 20px;
+        }
+
+        .tools-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tool-tag {
+            padding: 6px 12px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: #60a5fa;
+            transition: all 0.3s ease;
+        }
+
+        .tool-tag:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #60a5fa;
+            transform: translateY(-2px);
+        }
+
+        .card-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .card-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .card-action:active {
+            transform: translateY(0);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: slideUp 0.4s ease-out;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .modal-title-section {
+            flex: 1;
+        }
+
+        .modal-icon {
+            font-size: 3.5rem;
+            margin-bottom: 12px;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .modal-tagline {
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            margin-bottom: 30px;
+        }
+
+        .modal-section {
+            margin-bottom: 24px;
+        }
+
+        .modal-section-title {
+            font-size: 0.9rem;
+            color: #60a5fa;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .modal-section-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .modal-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .modal-tool-item {
+            padding: 12px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #60a5fa;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .modal-tool-item:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #60a5fa;
+            transform: translateY(-4px);
+        }
+
+        .modal-cta {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
+        }
+
+        /* No Results */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .no-results-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .no-results-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 60px;
+        }
+
+        .footer-text {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .footer-credit {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 15px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 20px 30px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .control-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-buttons {
+                width: 100%;
+            }
+
+            .filter-btn {
+                flex: 1;
+            }
+
+            .jobs-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .modal-content {
+                padding: 24px;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animations -->
+    <div class="bg-animations">
+        <div class="bg-blob blob-1"></div>
+        <div class="bg-blob blob-2"></div>
+        <div class="bg-blob blob-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-badge">🚀 The Future of Work in AI</div>
+        <h1>Nine Paths to <span class="gradient-text">AI Mastery</span></h1>
+        <p class="header-subtitle">Master the emerging specializations reshaping how businesses leverage artificial intelligence. Each role represents a critical capability in the modern AI stack.</p>
+    </header>
+
+    <!-- Control Panel -->
+    <div class="control-panel">
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input 
+                type="text" 
+                class="search-input" 
+                id="searchInput" 
+                placeholder="Search roles by name or tools..."
+                autocomplete="off"
+            >
+        </div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All Roles</button>
+            <button class="filter-btn" data-filter="automation">Automation</button>
+            <button class="filter-btn" data-filter="data">Data & Knowledge</button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="jobs-grid" id="jobsGrid"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="jobModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title-section">
+                    <div class="modal-icon" id="modalIcon"></div>
+                    <h2 class="modal-title" id="modalTitle"></h2>
+                    <p class="modal-tagline" id="modalTagline"></p>
+                </div>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3 class="modal-section-title">About This Role</h3>
+                    <p class="modal-section-content" id="modalFullDescription"></p>
+                </div>
+
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Essential Tools & Platforms</h3>
+                    <div class="modal-tools" id="modalTools"></div>
+                </div>
+
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Key Responsibilities</h3>
+                    <ul class="modal-section-content" id="modalResponsibilities" style="list-style-position: inside; padding-left: 0;"></ul>
+                </div>
+
+                <div class="modal-section">
+                    <h3 class="modal-section-title">Why This Matters</h3>
+                    <p class="modal-section-content" id="modalWhy"></p>
+                </div>
+            </div>
+
+            <button class="modal-cta" id="enrollBtn">Start Learning This Path</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-text">The AI landscape evolves rapidly. These nine specializations represent today's most critical capabilities.</p>
+        <p class="footer-credit">© 2025 AI Careers Nexus. Shaping the future of intelligent work.</p>
+    </footer>
+
+    <script>
+        // Job Data
+        const jobsData = [
+            {
+                id: 1,
+                title: 'Prompt Engineering',
+                tagline: 'The Art of Precision',
+                icon: '🎯',
+                category: 'optimization',
+                description: 'Transform vague requests into razor-sharp instructions that unlock the full potential of AI systems. This discipline bridges the gap between what users want and what AI can actually deliver.',
+                fullDescription: 'Prompt engineering has become the cornerstone of effective AI utilization. It\'s not just about asking the right questions—it\'s about structuring those questions to elicit maximum value from language models. Professionals in this field understand how different models think, what biases they carry, and how to craft inputs that achieve precise outputs.',
+                responsibilities: [
+                    'Develop and test sophisticated prompts that maximize AI output quality',
+                    'Optimize instruction patterns across different AI platforms',
+                    'Create reusable prompt templates for organizational workflows',
+                    'Measure and iterate on prompt effectiveness metrics'
+                ],
+                why: 'In competitive markets, the difference between generic and tailored outputs often determines ROI. Prompt engineers are becoming essential gatekeepers of AI value.',
+                tools: ['ChatGPT', 'Gemini', 'Claude', 'Perplexity']
+            },
+            {
+                id: 2,
+                title: 'AI Agents',
+                tagline: 'Autonomous Intelligence',
+                icon: '🤖',
+                category: 'automation',
+                description: 'Build self-directed systems that execute complex tasks without constant supervision. These intelligent entities learn, adapt, and complete multi-step workflows independently.',
+                fullDescription: 'AI agents represent the evolution beyond reactive chatbots. They are autonomous systems capable of planning, executing, and adapting strategies to achieve goals. They can handle multiple steps, recover from failures, and make decisions without human intervention for each action.',
+                responsibilities: [
+                    'Design agent architectures for specific use cases',
+                    'Implement autonomous decision-making frameworks',
+                    'Build fallback mechanisms and error recovery systems',
+                    'Monitor agent performance and continuously improve behavior'
+                ],
+                why: 'Autonomous agents can multiply human productivity by handling entire workflows that previously required constant supervision.',
+                tools: ['OpenAI', 'Crew AI', 'LangGraph', 'LangChain']
+            },
+            {
+                id: 3,
+                title: 'Workflow Automation',
+                tagline: 'Orchestrated Efficiency',
+                icon: '⚙️',
+                category: 'automation',
+                description: 'Eliminate repetitive work by connecting disparate tools into seamless workflows. Watch routine tasks complete automatically while your team focuses on strategic initiatives.',
+                fullDescription: 'Workflow automation integrates multiple business applications and AI services into synchronized processes. It\'s about seeing the full picture of how work flows through an organization and removing friction points where manual intervention currently exists.',
+                responsibilities: [
+                    'Map existing workflows and identify automation opportunities',
+                    'Design end-to-end automated processes using low-code/no-code platforms',
+                    'Integrate APIs and manage data flow between systems',
+                    'Monitor workflows and optimize for speed and reliability'
+                ],
+                why: 'Organizations that automate routine tasks see dramatic improvements in operational efficiency and employee satisfaction.',
+                tools: ['Make', 'Zapier', 'N8N', 'Bardeen']
+            },
+            {
+                id: 4,
+                title: 'Agentic Agents',
+                tagline: 'Intelligent Adaptation',
+                icon: '🧠',
+                category: 'automation',
+                description: 'Deploy reasoning-driven systems capable of handling unexpected situations. These agents adjust strategies on the fly, making intelligent decisions in complex, multi-step scenarios.',
+                fullDescription: 'Agentic agents go beyond simple automation—they reason about problems, consider multiple approaches, and adapt their strategies based on feedback. They\'re particularly powerful in environments with uncertainty and complexity.',
+                responsibilities: [
+                    'Build reasoning systems that can handle ambiguity',
+                    'Implement feedback loops for continuous learning',
+                    'Design strategies for multi-step problem solving',
+                    'Create safety guardrails for autonomous decision-making'
+                ],
+                why: 'In uncertain, complex domains, intelligent agents that reason and adapt outperform rigid automation by orders of magnitude.',
+                tools: ['OpenAI', 'Claude', 'Reflexion', 'DSPy']
+            },
+            {
+                id: 5,
+                title: 'Multimodal AI',
+                tagline: 'Cross-Medium Intelligence',
+                icon: '🎬',
+                category: 'optimization',
+                description: 'Leverage AI that understands text, images, audio, and code simultaneously. Create rich, cohesive experiences by processing multiple data types in a single intelligent system.',
+                fullDescription: 'Multimodal AI systems process and understand multiple types of input simultaneously. This capability enables entirely new applications—from visual analysis with contextual understanding to generating complete campaigns that span text, visuals, video, and audio.',
+                responsibilities: [
+                    'Design systems that integrate multiple input modalities',
+                    'Optimize models for cross-media understanding',
+                    'Build applications that transform ideas into complete multimedia outputs',
+                    'Handle complex data formats and ensure consistency across modalities'
+                ],
+                why: 'Multimodal systems unlock entirely new use cases and create more natural, comprehensive AI interactions.',
+                tools: ['Gemini', 'Claude 3.5 Sonnet', 'OpenAI Vision', 'Stable Audio']
+            },
+            {
+                id: 6,
+                title: 'RAG Systems',
+                tagline: 'Knowledge Integration',
+                icon: '📚',
+                category: 'data',
+                description: 'Enable AI to reference your proprietary data instead of relying on generic training. Perfect for support systems, sales enablement, and internal knowledge bases requiring precision.',
+                fullDescription: 'Retrieval-Augmented Generation (RAG) systems combine the power of language models with your own knowledge bases. Instead of relying on what a model learned during training, RAG systems can fetch relevant information in real-time, ensuring accuracy and specificity.',
+                responsibilities: [
+                    'Build and maintain searchable knowledge indexes',
+                    'Implement semantic search and retrieval mechanisms',
+                    'Optimize vector embeddings for domain-specific understanding',
+                    'Measure accuracy and reduce hallucinations in AI outputs'
+                ],
+                why: 'For accuracy-critical applications, RAG systems are the difference between unreliable AI and trustworthy decision support.',
+                tools: ['Pinecone', 'LlamaIndex', 'HayStack', 'Elastic']
+            },
+            {
+                id: 7,
+                title: 'AEO / GEO',
+                tagline: 'Discovery Optimization',
+                icon: '🔍',
+                category: 'optimization',
+                description: 'Position your brand where prospects are searching—whether in traditional search or AI answer engines. Capture visibility across ChatGPT, Perplexity, and emerging AI platforms.',
+                fullDescription: 'As AI-powered search becomes mainstream, companies need new strategies to remain visible. Answer Engine Optimization (AEO) ensures your content appears in AI-generated answers, while Generative Engine Optimization (GEO) optimizes for AI discovery across all platforms.',
+                responsibilities: [
+                    'Analyze AI search behavior and indexing patterns',
+                    'Optimize content for AI model consumption and citation',
+                    'Monitor brand appearance in AI-generated answers',
+                    'Adjust content strategy based on AI discovery trends'
+                ],
+                why: 'As prospects increasingly turn to AI for answers, visibility in AI-generated results becomes critical for business discovery.',
+                tools: ['Searchable', 'Trakr', 'Screaming Frog']
+            },
+            {
+                id: 8,
+                title: 'AI Tool Integration',
+                tagline: 'Unified Ecosystem',
+                icon: '🔗',
+                category: 'automation',
+                description: 'Create a synergistic network of best-in-class tools that communicate effortlessly. Eliminate context switching and enable continuous workflows across your entire tech stack.',
+                fullDescription: 'Rather than forcing teams to use monolithic platforms, tool integration specialists create ecosystems where best-of-breed solutions work together seamlessly. This approach maximizes both user adoption and value extraction.',
+                responsibilities: [
+                    'Evaluate and select complementary AI tools for specific needs',
+                    'Design integration architectures that minimize friction',
+                    'Build custom connectors and data bridges between platforms',
+                    'Manage tool proliferation and maintain system coherence'
+                ],
+                why: 'The best tools for one task often differ from the best tools for another. Integration specialists unlock value by making diverse tools work as one.',
+                tools: ['Notion AI', 'ClickUp AI', 'Airtable AI', 'Zapier AI']
+            },
+            {
+                id: 9,
+                title: 'LLM Operations',
+                tagline: 'Performance Management',
+                icon: '📊',
+                category: 'optimization',
+                description: 'Monitor costs, quality, and performance across your AI infrastructure. As AI becomes mission-critical, operational visibility and cost control determine competitive advantage.',
+                fullDescription: 'LLM Operations professionals ensure that AI systems remain cost-effective, performant, and reliable at scale. They monitor everything from token usage to output quality, continuously optimizing the balance between capability and cost.',
+                responsibilities: [
+                    'Monitor and optimize LLM costs and token usage',
+                    'Track output quality metrics and error rates',
+                    'Implement caching and performance optimization strategies',
+                    'Maintain visibility into model performance and system health'
+                ],
+                why: 'At scale, small inefficiencies in AI operations multiply into significant costs. LLMOps ensures sustainable, profitable AI deployment.',
+                tools: ['Descript', 'Saywhat', 'OpusClip', 'ElevenLabs']
+            }
+        ];
+
+        // DOM Elements
+        const jobsGrid = document.getElementById('jobsGrid');
+        const jobModal = document.getElementById('jobModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const searchInput = document.getElementById('searchInput');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        // Render Cards
+        function renderCards() {
+            jobsGrid.innerHTML = '';
+            let filtered = jobsData;
+
+            // Apply filter
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(job => job.category === currentFilter);
+            }
+
+            // Apply search
+            if (currentSearch) {
+                const searchLower = currentSearch.toLowerCase();
+                filtered = filtered.filter(job =>
+                    job.title.toLowerCase().includes(searchLower) ||
+                    job.tagline.toLowerCase().includes(searchLower) ||
+                    job.tools.some(tool => tool.toLowerCase().includes(searchLower))
+                );
+            }
+
+            if (filtered.length === 0) {
+                jobsGrid.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">🔎</div>
+                        <p class="no-results-text">No roles match your search</p>
+                        <p class="no-results-text" style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Try adjusting your filters or search terms</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach((job, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.animationDelay = `${index * 0.05}s`;
+                card.innerHTML = `
+                    <div class="card-content">
+                        <div class="card-icon">${job.icon}</div>
+                        <h3 class="card-title">${job.title}</h3>
+                        <p class="card-tagline">${job.tagline}</p>
+                        <p class="card-description">${job.description}</p>
+                        <div class="tools-section">
+                            <span class="tools-label">Featured Tools</span>
+                            <div class="tools-list">
+                                ${job.tools.map(tool => `<span class="tool-tag">${tool}</span>`).join('')}
+                            </div>
+                        </div>
+                        <button class="card-action" onclick="openModal(${job.id})">
+                            <span>Explore Role</span>
+                            <span>→</span>
+                        </button>
+                    </div>
+                `;
+                jobsGrid.appendChild(card);
+            });
+        }
+
+        // Modal Functions
+        function openModal(jobId) {
+            const job = jobsData.find(j => j.id === jobId);
+            if (!job) return;
+
+            document.getElementById('modalIcon').textContent = job.icon;
+            document.getElementById('modalTitle').textContent = job.title;
+            document.getElementById('modalTagline').textContent = job.tagline;
+            document.getElementById('modalFullDescription').textContent = job.fullDescription;
+            document.getElementById('modalWhy').textContent = job.why;
+
+            const responsibilitiesList = document.getElementById('modalResponsibilities');
+            responsibilitiesList.innerHTML = job.responsibilities.map(resp => `<li style="margin-bottom: 8px;">${resp}</li>`).join('');
+
+            const toolsContainer = document.getElementById('modalTools');
+            toolsContainer.innerHTML = job.tools.map(tool => `<div class="modal-tool-item">${tool}</div>`).join('');
+
+            jobModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            jobModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event Listeners
+        closeModalBtn.addEventListener('click', closeModal);
+        jobModal.addEventListener('click', (e) => {
+            if (e.target === jobModal) closeModal();
+        });
+
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value;
+            renderCards();
+        });
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderCards();
+            });
+        });
+
+        // Enrollment Button
+        document.getElementById('enrollBtn').addEventListener('click', () => {
+            alert('🎓 Thank you for your interest! In a real application, this would redirect to an enrollment page or learning platform.');
+        });
+
+        // Initial Render
+        renderCards();
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Prevent body scroll when modal is open
+        const style = document.createElement('style');
+        style.textContent = `
+            body.modal-open {
+                overflow: hidden;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
